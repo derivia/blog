@@ -1,5 +1,4 @@
 import { DataSource } from "typeorm";
-import { environment } from "./config/env";
 
 export const AppDataSource = new DataSource({
 	type: "postgres",
@@ -8,7 +7,7 @@ export const AppDataSource = new DataSource({
 	username: "bloguser",
 	password: "blogpass",
 	database: "blogdb",
-	synchronize: environment.toLowerCase() === "development", // sincroniza automaticamente entidades com o banco
+	synchronize: false,
 	logging: true,
 	entities: [__dirname + "/models/*.ts"],
 	migrations: [__dirname + "/migrations/*.ts"],

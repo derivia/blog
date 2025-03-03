@@ -13,7 +13,7 @@ enum ResponseStatus {
 abstract class ApiResponse {
 	constructor(
 		protected status: ResponseStatus,
-		protected message: string,
+		protected message?: string,
 	) {}
 
 	// prepares the response by setting headers and formatting the response body
@@ -69,14 +69,37 @@ abstract class ApiResponse {
 // class for successful responses, includes data in the response
 export class SuccessResponse<T> extends ApiResponse {
 	constructor(
-		message: string,
+		message?: string,
 		private data?: T,
 	) {
 		super(ResponseStatus.SUCCESS, message);
 	}
 
 	send(res: Response, headers: { [key: string]: string } = {}): Response {
-		return super.prepare<SuccessResponse<T>>(res, this, headers);
+		const transformedData = this.transformDates(this.data);
+		return super.prepare<SuccessResponse<T>>(
+			res,
+			{ ...this, data: transformedData },
+			headers,
+		);
+	}
+
+	private transformDates(data: any): any {
+		if (data instanceof Date) {
+			return data.toISOString();
+		}
+		if (Array.isArray(data)) {
+			return data.map((item) => this.transformDates(item));
+		}
+		if (typeof data === "object" && data !== null) {
+			return Object.fromEntries(
+				Object.entries(data).map(([key, value]) => [
+					key,
+					this.transformDates(value),
+				]),
+			);
+		}
+		return data;
 	}
 }
 

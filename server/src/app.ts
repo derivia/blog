@@ -9,6 +9,7 @@ import { ApiError, InternalError } from "./core/error";
 import { NotFoundResponse } from "./core/response";
 import { cspConfig } from "./config/csp";
 import { AppDataSource } from "./data-source";
+import postRouter from "./routers/post.router";
 
 dotenv.config();
 
@@ -44,7 +45,8 @@ async function initializeDatabase() {
 async function startServer() {
 	await initializeDatabase();
 
-  // imported things like routers and middlewares (after security, db & json configuration)
+	// imported things like routers and middlewares (after security, db & json configuration)
+	app.use("/api/posts", postRouter);
 
 	// default unknown endpoint response
 	app.use((_req: Request, res: Response) => {
