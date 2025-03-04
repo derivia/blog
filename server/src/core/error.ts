@@ -23,7 +23,7 @@ export abstract class ApiError extends Error {
 		public error_type: ErrorType,
 		public message: string = "Error",
 	) {
-		super(error_type);
+		super(message);
 	}
 
 	// handles the error by sending the appropriate response based on the error type

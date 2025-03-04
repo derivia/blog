@@ -61,11 +61,7 @@ async function startServer() {
 	app.use(
 		(err: ApiError, _req: Request, res: Response, _next: NextFunction) => {
 			if (err instanceof ApiError) {
-				if (environment === "development") {
-					return res.status(500).send(err);
-				} else {
-					ApiError.handle(err, res);
-				}
+				ApiError.handle(err, res);
 			} else {
 				ApiError.handle(new InternalError(), res);
 			}

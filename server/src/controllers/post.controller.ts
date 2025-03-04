@@ -1,14 +1,12 @@
 import { Request, Response } from "express";
 import {
 	PostCreationDTO,
-	PostUpdateDTO,
 	PostUpdateSchema,
 } from "../models/dtos/post.dto";
 import { SuccessResponse } from "../core/response";
 import * as postService from "../services/post.service";
 
 import { BadRequestError, InternalError, NotFoundError } from "../core/error";
-import { plainToInstance } from "class-transformer";
 import { z } from "zod";
 
 export const validateId = async (id: string): Promise<number | null> => {
@@ -78,6 +76,9 @@ export const updatePostBySlug = async (
 		const updatedPost = await postService.updatePostBySlug(slug, updateData);
 		return new SuccessResponse("Post updated", updatedPost).send(res);
 	} catch (err) {
-		throw new TypeError("Validation failed");
+		if (err instanceof z.ZodError) {
+			throw new BadRequestError(err.errors.map((e) => e.message).join(", "));
+		}
 	}
+	throw new InternalError("Update failed");
 };

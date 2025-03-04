@@ -5,6 +5,7 @@ enum ResponseStatus {
 	SUCCESS = 200,
 	BAD_REQUEST = 400,
 	UNAUTHORIZED = 401,
+	FORBIDDEN = 403,
 	NOT_FOUND = 404,
 	INTERNAL = 500,
 }
@@ -12,12 +13,12 @@ enum ResponseStatus {
 // abstract class to create a base structure for all API responses
 abstract class ApiResponse {
 	constructor(
-		protected status: ResponseStatus,
-		protected message?: string,
+		public status: ResponseStatus,
+		public message?: string,
 	) {}
 
 	// prepares the response by setting headers and formatting the response body
-	protected prepare<T extends ApiResponse>(
+	public prepare<T extends ApiResponse>(
 		res: Response,
 		response: T,
 		headers: { [key: string]: string },
@@ -129,6 +130,6 @@ export class NotFoundResponse extends ApiResponse {
 
 export class ForbiddenResponse extends ApiResponse {
 	constructor(message = "Forbidden") {
-		super(ResponseStatus.NOT_FOUND, message);
+		super(ResponseStatus.FORBIDDEN, message);
 	}
 }

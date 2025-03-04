@@ -1,5 +1,4 @@
 import { PostCreationDTO, PostUpdateDTO } from "../models/dtos/post.dto";
-import { Post } from "../models/post";
 import postRepository from "../repositories/post.repository";
 import _ from "lodash";
 
