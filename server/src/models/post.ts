@@ -4,10 +4,8 @@ import {
 	Entity,
 	Index,
 	PrimaryGeneratedColumn,
-	Unique,
 	UpdateDateColumn,
 } from "typeorm";
-import { v4 as uuidv4 } from "uuid";
 
 @Entity()
 export class Post {

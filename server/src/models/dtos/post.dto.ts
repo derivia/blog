@@ -38,4 +38,22 @@ export class PostCreationDTO {
 	slug: string;
 }
 
+export class PostResponseDTO {
+	id: string;
+	title: string;
+	content: string;
+	slug: string;
+	createdAt: Date;
+	updatedAt: Date;
+
+	constructor(post: any) {
+		this.id = post.id;
+		this.title = post.title;
+		this.content = post.content;
+		this.slug = post.slug;
+		this.createdAt = post.createdAt;
+		this.updatedAt = post.updatedAt;
+	}
+}
+
 export type PostUpdateDTO = z.infer<typeof PostUpdateSchema>;

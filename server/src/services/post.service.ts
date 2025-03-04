@@ -1,15 +1,23 @@
-import { PostCreationDTO, PostUpdateDTO } from "../models/dtos/post.dto";
+import {
+	PostCreationDTO,
+	PostResponseDTO,
+	PostUpdateDTO,
+} from "../models/dtos/post.dto";
+import { Post } from "../models/post";
 import postRepository from "../repositories/post.repository";
 import _ from "lodash";
 
 export const createPost = async (data: PostCreationDTO) => {
-	const created = await postRepository.insert(data);
-	return created;
+	const post = new Post();
+	Object.assign(post, data);
+	await postRepository.insert(post);
+	const created = await postRepository.findOneBy({ slug: data.slug });
+	return new PostResponseDTO(created);
 };
 
 export const getPosts = async () => {
 	const posts = await postRepository.find();
-	return posts;
+	return posts.map((post) => new PostResponseDTO(post));
 };
 
 export const deletePost = async (id: string) => {
@@ -26,7 +34,7 @@ export const getPostById = async (id: string) => {
 
 export const getPostBySlug = async (slug: string) => {
 	const post = await postRepository.findOneBy({ slug });
-	return post;
+	return post ? new PostResponseDTO(post) : null;
 };
 
 export const updatePostBySlug = async (
