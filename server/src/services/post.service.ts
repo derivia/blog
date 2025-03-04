@@ -35,17 +35,10 @@ export const getPostById = async (id: string) => {
 };
 
 export const getPostBySlug = async (slug: string) => {
-	const post = await postRepository
-		.createQueryBuilder("post")
-		.select([
-			"post.title",
-			"post.content",
-			"post.slug",
-			"post.createdAt",
-			"post.updatedAt",
-		])
-		.where("post.slug = :slug", { slug })
-		.getOne();
+	const post = await postRepository.findOne({
+		where: { slug },
+		select: ["title", "content", "slug", "createdAt", "updatedAt"],
+	});
 	return post ? new PostResponseDTO(post) : null;
 };
 
