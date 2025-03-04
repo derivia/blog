@@ -1,7 +1,8 @@
 import { debug } from "console";
+import dotenv from "dotenv";
+dotenv.config();
 import cookieParser from "cookie-parser";
 import cors, { CorsOptions } from "cors";
-import dotenv from "dotenv";
 import express, { NextFunction, Request, Response } from "express";
 import helmet from "helmet";
 import { environment, api_port } from "./config/env";
@@ -10,8 +11,7 @@ import { NotFoundResponse } from "./core/response";
 import { cspConfig } from "./config/csp";
 import { AppDataSource } from "./data-source";
 import postRouter from "./routers/post.router";
-
-dotenv.config();
+import loginRouter from "./routers/login.router";
 
 const app = express();
 app.use(helmet.contentSecurityPolicy(cspConfig));
@@ -47,6 +47,7 @@ async function startServer() {
 
 	// imported things like routers and middlewares (after security, db & json configuration)
 	app.use("/api/posts", postRouter);
+	app.use("/api/login", loginRouter);
 
 	// default unknown endpoint response
 	app.use((_req: Request, res: Response) => {
