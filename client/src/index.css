@@ -7,9 +7,9 @@
   font-weight: 400;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
-  /* bright variant -> background-color: #e2e2e2;*/
-  background-color: #323232;
-  --accent: #<accent>;
+  background-color: #f8f5f2;
+  --accent-1: #078080;
+  --accent-2: #f45d48;
 }
 
 * {
