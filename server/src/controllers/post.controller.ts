@@ -1,8 +1,15 @@
 import { Request, Response } from "express";
-import { PostCreationDTO } from "../models/dtos/post.dto";
+import {
+	PostCreationDTO,
+	PostUpdateDTO,
+	PostUpdateSchema,
+} from "../models/dtos/post.dto";
 import { SuccessResponse } from "../core/response";
 import * as postService from "../services/post.service";
-import { BadRequestError, NotFoundError } from "../core/error";
+
+import { BadRequestError, InternalError, NotFoundError } from "../core/error";
+import { plainToInstance } from "class-transformer";
+import { z } from "zod";
 
 export const validateId = async (id: string): Promise<number | null> => {
 	const parsedId = parseInt(id, 10);
@@ -58,4 +65,19 @@ export const deletePostBySlug = async (
 
 	const deleted = await postService.deletePost(post.id);
 	return new SuccessResponse("Post deleted", deleted).send(res);
+};
+
+export const updatePostBySlug = async (
+	req: Request,
+	res: Response,
+): Promise<Response> => {
+	const { slug } = req.params;
+	const data = req.body;
+	try {
+		const updateData = PostUpdateSchema.parse(data);
+		const updatedPost = await postService.updatePostBySlug(slug, updateData);
+		return new SuccessResponse("Post updated", updatedPost).send(res);
+	} catch (err) {
+		throw new TypeError("Validation failed");
+	}
 };

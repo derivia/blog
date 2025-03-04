@@ -8,5 +8,6 @@ postRouter.get("/", asyncHandler(PostController.getPosts))
 postRouter.post("/", asyncHandler(PostController.createPost));
 postRouter.get("/:slug", asyncHandler(PostController.getPostBySlug));
 postRouter.delete("/:slug", asyncHandler(PostController.deletePostBySlug));
+postRouter.put("/:slug", asyncHandler(PostController.updatePostBySlug));
 
 export default postRouter;
