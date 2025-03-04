@@ -16,7 +16,9 @@ export const createPost = async (data: PostCreationDTO) => {
 };
 
 export const getPosts = async () => {
-	const posts = await postRepository.find();
+	const posts = await postRepository.find({
+		select: ["title", "slug", "createdAt", "updatedAt"],
+	});
 	return posts.map((post) => new PostResponseDTO(post));
 };
 
@@ -33,7 +35,17 @@ export const getPostById = async (id: string) => {
 };
 
 export const getPostBySlug = async (slug: string) => {
-	const post = await postRepository.findOneBy({ slug });
+	const post = await postRepository
+		.createQueryBuilder("post")
+		.select([
+			"post.title",
+			"post.content",
+			"post.slug",
+			"post.createdAt",
+			"post.updatedAt",
+		])
+		.where("post.slug = :slug", { slug })
+		.getOne();
 	return post ? new PostResponseDTO(post) : null;
 };
 
