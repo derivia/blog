@@ -1,17 +1,58 @@
+import { Link } from "react-router-dom";
+import Header from "../components/Header";
+
 const About = () => {
 	return (
-		<div className="flex flex-col m-auto w-[50%]">
-			<h1 className="text-5xl">About me</h1>
-			<h2 className="text-3xl">Hey, I'm Lorran!</h2>
-			<span>
-				I've been making programs since i was a kid, starting with simple C++
-				terminal-based games. I like hardware, playing video games, and reading.
-				On this website, you'll find my posts and articles i've written til now.
-				Check out the projects page to see a highlight of my open-source work.
-				Send me an email if you want, or connect via github. Email:
-				contato.lorransoares@gmail.com GitHub: https://github.com/derivia
-			</span>
-		</div>
+		<>
+			<Header />
+			<main className="w-4/5 flex flex-col mt-12">
+				<h1 className="text-5xl mb-3">About me</h1>
+				<h2 className="text-3xl mb-6">Hey, I'm Lorran!</h2>
+				<div>
+					<p>
+						I've been dealing with software since i was a kid, starting with
+						simple C++ terminal-based games.
+					</p>
+					<p>I like hardware, playing video games, gym-stuff and reading.</p>
+					<p>
+						On this website, you'll find my posts and articles i've written til
+						now.
+					</p>
+					<p>
+						Check out the{" "}
+						<Link className="text-leafgreen" to="/projects">
+							projects
+						</Link>{" "}
+						page to see a highlight of my open-source work.
+					</p>
+					<p>
+						Send me an{" "}
+						<Link
+							className="text-leafgreen"
+							to="mailto:contato.lorransoares@gmail.com"
+						>
+							email
+						</Link>{" "}
+						if you want.
+					</p>
+				</div>
+				<div className="mt-6">
+					<p>
+						I started gym in the middle of 2024, since them i've been more
+						focused on strength training. From someone that couldn't make more
+						than 15 pushups, I feel great now.
+					</p>
+					<ul>
+						<li>Here's my current lifting: </li>
+						{/* Feel these this week! */}
+						<li>Squat - ??</li>
+						<li>Deadlift - ??</li>
+						<li>Bench Press - ??</li>
+						<li>Overhead Press - ??</li>
+					</ul>
+				</div>
+			</main>
+		</>
 	);
 };
 

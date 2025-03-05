@@ -7,10 +7,21 @@
 //
 // The posts should be fetched from the server 'GET /api/posts'.
 // The complete post should be fetched from the server with 'GET /api/posts/:slug'
-//
-// -> Update the server to only return Posts titles, tags and created/updated date on 'GET api/posts'.
+
+import Header from "../components/Header";
+import { createPost } from "../utils/api";
+
 const Home = () => {
-	return <div>Hello, world!</div>;
+	createPost({ title: "", content: "" });
+	return (
+		<>
+			<Header />
+			<main className="mt-12">
+				<h1 className="text-5xl mb-9">Posts</h1>
+				{/* Posts list */}
+			</main>
+		</>
+	);
 };
 
 export default Home;
