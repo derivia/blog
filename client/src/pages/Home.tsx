@@ -9,10 +9,14 @@
 // The complete post should be fetched from the server with 'GET /api/posts/:slug'
 
 import Header from "../components/Header";
-import { createPost } from "../utils/api";
+import { createPost, fetchPostBySlug, fetchPosts } from "../utils/api";
 
 const Home = () => {
-	createPost({ title: "", content: "" });
+	createPost({
+		title: "hello, testing...",
+		content: "goodbye, little test!",
+		slug: "test-this",
+	});
 	return (
 		<>
 			<Header />

@@ -1,8 +1,24 @@
 import axios from "axios";
 import { PostCreationData } from "./post";
-import { ENVIRONMENT, BASE_URL } from "./env";
+import { BASE_URL } from "./env";
 
-/* @TODO: Conclude these functions */
-export const createPost = async (data: PostCreationData) => {};
-export const fetchPostBySlug = async (slug: string) => {};
-export const fetchPosts = async () => {};
+export const createPost = async (data: PostCreationData) => {
+	const { title, content, slug, tags } = data;
+	const response = await axios.post(BASE_URL + "/posts", {
+		title,
+		content,
+		slug,
+		tags,
+	});
+	console.log(response.data);
+};
+
+export const fetchPostBySlug = async (slug: string) => {
+	const response = await axios.get(BASE_URL + `/posts/${slug}`);
+	console.log(response.data);
+};
+
+export const fetchPosts = async () => {
+	const response = await axios.get(BASE_URL + "/posts");
+	console.log(response.data);
+};
