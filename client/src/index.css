@@ -3,50 +3,54 @@
 @tailwind utilities;
 
 :root {
-  line-height: 1.5;
-  font-weight: 400;
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  background-color: #f8f5f2;
-  --accent-1: #078080;
-  --accent-2: #f45d48;
+	line-height: 1.6em;
+	font-weight: 400;
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	background-color: #f8f5f2;
+	--accent-1: #078080;
+	--accent-2: #f45d48;
 }
 
 * {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 html {
-  font-family: "Inter", sans-serif;
-}
-
-html, body {
-  margin: 0;
-  height: 100vh;
-}
-
-body {
-  display: flex;
-  justify-content: center;
-  min-height: 100vh;
+	font-family: "Inter", sans-serif;
 }
 
 #root {
-  display: flex;
-  justify-content: center;
-  max-width: 58.5rem;
-  width: 100%;
-  margin: 0 10%;
+	word-wrap: break-word;
+	max-width: 1000px;
+	padding: 0 24px;
+	margin: 0 auto;
 }
 
 @layer components {
-  .underlined {
-    @apply underline decoration-wavy;
-    text-decoration-color: var(--accent);
-  }
+	.underlined {
+		@apply underline decoration-wavy;
+		text-decoration-color: var(--accent);
+	}
 
-  .hunderlined {
-    @apply hover:underline decoration-wavy;
-    text-decoration-color: var(--accent);
-  }
+	.hunderlined {
+		@apply hover:underline decoration-wavy;
+		text-decoration-color: var(--accent);
+	}
+}
+
+@media all and (min-width: 640px) {
+	html {
+		font-size: 14px;
+	}
+}
+@media all and (min-width: 720px) {
+	html {
+		font-size: 15px;
+	}
+}
+@media all and (min-width: 960px) {
+	html {
+		font-size: 16px;
+	}
 }
