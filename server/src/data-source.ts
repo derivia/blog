@@ -1,13 +1,19 @@
 import { DataSource } from "typeorm";
-import { environment } from "./config/env";
+import {
+	docker,
+	environment,
+	postgres_db,
+	postgres_pass,
+	postgres_user,
+} from "./config/env";
 
 export const AppDataSource = new DataSource({
 	type: "postgres",
-	host: "localhost",
+	host: docker === "true" ? "db-blog" : "localhost",
 	port: 5432,
-	username: "bloguser",
-	password: "blogpass",
-	database: "blogdb",
+	username: postgres_user,
+	password: postgres_pass,
+	database: postgres_db,
 	synchronize: false,
 	logging: environment === "development",
 	entities: [__dirname + "/models/*.ts"],

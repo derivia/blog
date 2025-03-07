@@ -1,0 +1,51 @@
+services:
+  api-blog:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: api-blog
+    env_file:
+      - ./server/.env.docker
+    environment:
+      NODE_ENV: development
+    ports:
+      - "3030:3030"
+    networks:
+      - blog-network
+    depends_on:
+      - db-blog
+  ui-blog:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: ui-blog
+    env_file:
+      - ./client/.env.docker
+    environment:
+      NODE_ENV: development
+    ports:
+      - "5173:5173"
+    networks:
+      - blog-network
+    depends_on:
+      - api-blog
+  db-blog:
+    image: postgres:alpine
+    container_name: db-blog
+    environment:
+      POSTGRES_USER: bloguser
+      POSTGRES_PASSWORD: blogpass
+      POSTGRES_DB: blogdb
+      POSTGRES_DB_HOST: db
+      POSTGRES_LOG_LEVEL: "ERROR"
+    ports:
+      - "5433:5432" # 5433 if 5432 is being used locally
+    networks:
+      - blog-network
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+volumes:
+  postgres_data:
+networks:
+  blog-network:
+    driver: bridge
