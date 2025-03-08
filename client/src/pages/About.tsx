@@ -44,11 +44,10 @@ const About = () => {
 					</p>
 					<ul>
 						<li>Here's my current lifting: </li>
-						{/* Feel these this week! */}
-						<li>Squat - ??</li>
-						<li>Deadlift - ??</li>
-						<li>Bench Press - ??</li>
-						<li>Overhead Press - ??</li>
+						<li>Squat - 65</li>
+						<li>Deadlift - 120</li>
+						<li>Bench Press - 60</li>
+						<li>Overhead Press - 28</li>
 					</ul>
 				</div>
 			</main>
