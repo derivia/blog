@@ -1,34 +1,33 @@
-import { environment } from "./env";
+import { environment, docker } from "./env";
 
-export const cspConfig =
-	environment === "production"
-		? {
-				directives: {
-					defaultSrc: ["'none'"],
-					scriptSrc: ["'self'"],
-					connectSrc: ["'self'"],
-					imgSrc: ["'self'"],
-					styleSrc: ["'self'"],
-					frameAncestors: ["'self'"],
-					formAction: ["'self'"],
-					fontSrc: ["'self'", "https:", "data:"],
-					objectSrc: ["'none'"],
-					scriptSrcAttr: ["'none'"],
-					baseUri: ["'self'"],
-				},
-			}
-		: {
-				directives: {
-					defaultSrc: ["'none'"],
-					scriptSrc: ["'self'", "http://localhost:*"],
-					connectSrc: ["'self'", "http://localhost:*"],
-					imgSrc: ["'self'", "data:"],
-					styleSrc: ["'self'", "'unsafe-inline'"],
-					frameAncestors: ["'self'"],
-					formAction: ["'self'"],
-					fontSrc: ["'self'", "https:", "data:"],
-					objectSrc: ["'none'"],
-					scriptSrcAttr: ["'none'"],
-					baseUri: ["'self'"],
-				},
-			};
+const getHosts = () => {
+	const hosts = ["'self'"];
+
+	if (environment === "development") {
+		hosts.push("http://localhost:*");
+
+		if (docker === "true") {
+			hosts.push("http://ui-blog:*");
+			hosts.push("http://api-blog:*");
+		}
+	}
+
+	return hosts;
+};
+
+export const cspConfig = {
+	directives: {
+		defaultSrc: ["'none'"],
+		scriptSrc: getHosts(),
+		connectSrc: getHosts(),
+		imgSrc: ["'self'", "data:"],
+		styleSrc:
+			environment === "production" ? ["'self'"] : ["'self'", "'unsafe-inline'"],
+		frameAncestors: ["'self'"],
+		formAction: ["'self'"],
+		fontSrc: ["'self'", "https:", "data:"],
+		objectSrc: ["'none'"],
+		scriptSrcAttr: ["'none'"],
+		baseUri: ["'self'"],
+	},
+};

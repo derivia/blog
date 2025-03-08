@@ -2,10 +2,11 @@ import { debug } from "console";
 import dotenv from "dotenv";
 dotenv.config();
 import cookieParser from "cookie-parser";
-import cors, { CorsOptions } from "cors";
+import cors from "cors";
+import { corsOptions } from "./config/cors";
 import express, { NextFunction, Request, Response } from "express";
 import helmet from "helmet";
-import { environment, api_port } from "./config/env";
+import { api_port } from "./config/env";
 import { ApiError, InternalError } from "./core/error";
 import { NotFoundResponse } from "./core/response";
 import { cspConfig } from "./config/csp";
@@ -16,16 +17,6 @@ import loginRouter from "./routers/login.router";
 const app = express();
 app.use(helmet.contentSecurityPolicy(cspConfig));
 app.disable("x-powered-by");
-
-const corsOptions: CorsOptions = {
-	origin:
-		environment === "development"
-			? ["http://localhost:5173", "http://localhost:4173", "http://ui:5173"] // 4173 & 5173 - Vite default ports
-			: "https://<production-domain>",
-	credentials: true,
-	methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-	allowedHeaders: ["Content-Type", "Authorization"],
-};
 
 app.use(cors(corsOptions));
 app.use(cookieParser());
