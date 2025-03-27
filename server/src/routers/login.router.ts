@@ -25,7 +25,7 @@ const login = async (req: Request, res: Response): Promise<Response> => {
 	res.cookie("atk", token, {
 		httpOnly: true,
 		secure: process.env.NODE_ENV === "production",
-		sameSite: "strict",
+		sameSite: process.env.NODE_ENV === "production" ? "strict" : "none",
 		maxAge: 1000 * 60 * 60, // cookie expiration (1 hour)
 	});
 	return new SuccessResponse("Login successful").send(res);

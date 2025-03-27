@@ -13,12 +13,18 @@ const apiClient = axios.create({
 
 export const createPost = async (data: PostCreationData) => {
 	try {
-		const response = await apiClient.post("/posts", {
-			title: data.title,
-			content: data.content,
-			slug: data.slug,
-			tags: data.tags,
-		});
+		const response = await apiClient.post(
+			"/posts",
+			{
+				title: data.title,
+				content: data.content,
+				slug: data.slug,
+				tags: data.tags,
+			},
+			{
+				withCredentials: true,
+			},
+		);
 		return response.data;
 	} catch (error) {
 		if (axios.isAxiosError(error)) {
