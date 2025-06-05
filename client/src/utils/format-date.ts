@@ -5,7 +5,7 @@ enum DateFormat {
 
 export const formatDateToBr = (
 	dateString: string,
-	formatString: DateFormat,
+	formatString: DateFormat | string,
 ) => {
 	const date = new Date(dateString);
 	return date.toLocaleDateString(formatString);

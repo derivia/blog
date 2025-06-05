@@ -6,8 +6,8 @@ export const generateToken = (): string => {
 		sub: "admin",
 		iat: Math.floor(Date.now() / 1000),
 		exp: Math.floor(Date.now() / 1000) + 3600, // 1 hour expiration time
-		iss: "aiyqa",
-		aud: "aiyqa",
+		iss: "lorran",
+		aud: "lorran",
 	};
 	return jwt.sign(payload, jwt_secret);
 };
