@@ -6,8 +6,8 @@ const getAllowedOrigins = (): string[] => {
 		return ["https://<prod-domain>.com"];
 	}
 
-	const localOrigins = ["http://localhost:5173", "http://localhost:4173"];
-	const dockerOrigins = ["http://ui-blog:5173"];
+	const localOrigins = ["http://localhost:4173"];
+	const dockerOrigins = ["http://ui-blog:4173"];
 
 	return docker ? [...localOrigins, ...dockerOrigins] : localOrigins;
 };

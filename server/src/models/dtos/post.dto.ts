@@ -26,16 +26,16 @@ export const PostUpdateSchema = z
 
 export class PostCreationDTO {
 	@IsNotEmpty()
-	title: string;
+	title!: string;
 
 	@IsNotEmpty()
-	content: string;
+	content!: string;
 
 	@IsNotEmpty()
 	@Matches(/^[a-z0-9-]+$/, {
 		message: "Slug can only contain lowercase letters, numbers, and hyphens",
 	})
-	slug: string;
+	slug!: string;
 }
 
 export class PostResponseDTO {

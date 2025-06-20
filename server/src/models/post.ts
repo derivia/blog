@@ -10,21 +10,21 @@ import {
 @Entity()
 export class Post {
 	@PrimaryGeneratedColumn("uuid")
-	id: string;
+	id!: string;
 
 	@Column()
-	title: string;
+	title!: string;
 
 	@Column()
-	content: string;
+	content!: string;
 
 	@Column()
 	@Index({ unique: true })
-	slug: string;
+	slug!: string;
 
 	@CreateDateColumn()
-	createdAt: Date;
+	createdAt!: Date;
 
 	@UpdateDateColumn()
-	updatedAt: Date;
+	updatedAt!: Date;
 }

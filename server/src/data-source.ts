@@ -1,20 +1,14 @@
 import { DataSource } from "typeorm";
 import {
-	docker,
 	environment,
 	postgres_db,
 	postgres_pass,
 	postgres_user,
 } from "./config/env";
 
-const isRunningDocker =
-	docker === "true" || process.env.INSIDE_DOCKER === "true";
-
-const dbhost = isRunningDocker ? "db-blog" : "localhost";
-
 export const AppDataSource = new DataSource({
 	type: "postgres",
-	host: dbhost,
+	host: "shared_postgres",
 	port: 5432,
 	username: postgres_user,
 	password: postgres_pass,

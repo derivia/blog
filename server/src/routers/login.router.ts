@@ -1,7 +1,7 @@
 import { Request, Response, Router } from "express";
 import { asyncHandler } from "../helpers/async";
 import { adm_pass } from "../config/env";
-import bcrypt from "bcrypt";
+import * as bcrypt from "bcryptjs";
 import {
 	AuthErrorResponse,
 	BadRequestResponse,

@@ -39,8 +39,8 @@ docker-compose up --build
 ```
 
 - Access:
-    - Frontend: http://localhost:5173
-    - Backend API: http://localhost:3030/api
+    - Frontend: http://localhost:4173
+    - Backend API: http://localhost:3000/api
 
 ## Endpoints
 
@@ -67,7 +67,7 @@ You will need at least:
 ### `server/.env.docker`
 
 ```
-API_PORT=3030
+API_PORT=3000
 JWT_SECRET=<your-secret>
 ADM_PASS_HASH=<bcrypt hash of admin password>
 ```

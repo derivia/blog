@@ -21,7 +21,7 @@ app.disable("x-powered-by");
 app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(express.json());
-const port = api_port || 3030;
+const port = api_port || 3000;
 
 async function initializeDatabase() {
 	try {
